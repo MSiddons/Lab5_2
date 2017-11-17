@@ -23,11 +23,10 @@ void exercise1()
 }
 
 //Q2------------------------------------------------------------------------------------------------
-void roll()
+void rolling(vector<int> &r)
 {
 	int a, b, c;
-	vector<int> roll(6);
-	for (int i = 1; i <= 36000; i++) // make i number of dice rolls.
+	for (int i = 1; i <= 360000; i++) // make i number of dice rolls.
 	{
 		a = myRand(1, 6);
 		b = myRand(1, 6);
@@ -37,26 +36,35 @@ void roll()
 			c = b;
 		for (int j = 1; j <= 6; j++) // loop that if the iteration number is equal to the highest roll, add 1 to the counter for that number.
 			if (c == j)
-				roll[j - 1]++;
+				r[j - 1]++;
 	}
-
 }
 
 void exercise2()
 {
-
+	vector<int> roll(6);
+	rolling(roll);
 	cout << "The rolls were as follows: " << endl;
 	for (int i = 1; i <= 6; i++)
 		cout << roll[i - 1] << " Rolls of " << i << endl;
 }
-
 
 //Q3------------------------------------------------------------------------------------------------
 
 
 void exercise3()
 {
-
+	vector<int> roll(6);
+	double a;
+	rolling(roll); // reuse the function from Q2.
+	for (int i = 1; i <= 6; i++)// output each result per loop.
+	{
+		cout << i << ": " << " "; 
+		a = lrint(roll[i - 1]/10000); // turn the rolls for this iteration into a double then round that double up to the nearest integer.
+		for (int j = 1; j <= a; j++) // print stars sub loop.
+			cout << "*";
+		cout << endl;
+	}
 }
 
 //Q4------------------------------------------------------------------------------------------------
