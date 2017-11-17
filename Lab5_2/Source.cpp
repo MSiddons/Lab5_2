@@ -1,25 +1,55 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
-
+#include <vector>
 
 using namespace std;
 
 //Q1------------------------------------------------------------------------------------------------
 
+int myRand(int a, int b)
+{
+	return rand() % b + a; // return a random number between two given values
+}
 
 void exercise1()
 {
-
+	int a, b;
+	cout << "Enter your first value: ";
+	cin >> a;
+	cout << "Enter your second value: ";
+	cin >> b;
+	cout << myRand(a, b) << endl; // give the two values to the random number generator to generate a random between them.
 }
 
 //Q2------------------------------------------------------------------------------------------------
+void roll()
+{
+	int a, b, c;
+	vector<int> roll(6);
+	for (int i = 1; i <= 36000; i++) // make i number of dice rolls.
+	{
+		a = myRand(1, 6);
+		b = myRand(1, 6);
+		if (a > b) // assign the largest number to 'e'.
+			c = a;
+		else
+			c = b;
+		for (int j = 1; j <= 6; j++) // loop that if the iteration number is equal to the highest roll, add 1 to the counter for that number.
+			if (c == j)
+				roll[j - 1]++;
+	}
 
+}
 
 void exercise2()
 {
 
+	cout << "The rolls were as follows: " << endl;
+	for (int i = 1; i <= 6; i++)
+		cout << roll[i - 1] << " Rolls of " << i << endl;
 }
+
 
 //Q3------------------------------------------------------------------------------------------------
 
