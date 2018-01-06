@@ -1,7 +1,9 @@
 #include <iostream>
 #include <stdlib.h>
+#include <random>
 #include <time.h>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
 
@@ -59,34 +61,102 @@ void exercise3()
 	rolling(roll); // reuse the function from Q2.
 	for (int i = 1; i <= 6; i++)// output each result per loop.
 	{
-		cout << i << ": " << " "; 
-		a = lrint(roll[i - 1]/10000); // turn the rolls for this iteration into a double then round that double up to the nearest integer.
+		cout << roll[i - 1] << " ";
+		cout << i << ": " << " ";
+		a = roll[i - 1]; //  turn the rolls for this iteration into a double
+		a = lrint(a / 10000);// then round that double up to the nearest integer.
 		for (int j = 1; j <= a; j++) // print stars sub loop.
 			cout << "*";
-		cout << endl;
+		cout << a << endl;
 	}
 }
 
 //Q4------------------------------------------------------------------------------------------------
 
 
-void exercise4()
+void dropBall(vector<int> & pots)
 {
-
+	int ballPos = 0;
+	for (int i = 0; i < pots.size() - 1; i++) // drop the ball down the board
+		ballPos = ballPos + (rand() % 2);
+	pots[ballPos]++; // increment the pot the ball landed in
 }
 
-//Q5------------------------------------------------------------------------------------------------
+vector<int> experiment(int numLevels, int numBalls)
+{
+	vector <int> results(numLevels + 1); // vector has number of elements equal to the levels number entered
+	for (int i = 1; i <= numBalls; i++)
+		dropBall(results);
+	return results;
+}
 
+int max(vector<int> results)
+{
+	int max = 0;
+	for (int i = 0; i < results.size(); i++)
+		if (results[i] > max)
+			max = results[i];
+	cout << max << " ";
+	return max;
+}
+
+void display(vector<int> results)
+{
+	double stars = max(results) / 70;
+	cout << stars << endl;
+	for (int i = 0; i < results.size(); i++)
+	{
+		cout << setw(3) << setfill(' ') << i << ": ";
+		cout << setw(results[i] / stars) << setfill('*') << " ";
+		cout << results[i] << endl;
+	}
+	cout << endl;
+}
+
+void exercise4()
+{
+	int numLevels, numBalls;
+	cout << "Enter number of levels: ";
+	cin >> numLevels;
+	cout << "Enter number of balls: ";
+	cin >> numBalls;
+	vector <int> results = experiment(numLevels, numBalls);
+	display(results);
+}
+
+
+//Q5------------------------------------------------------------------------------------------------
+int sequence(int toss)
+{
+	int flip, last = 2, run = 0, max = 0;
+	for (int i = 1; i <= toss; i++)
+	{
+		flip = (rand() % 2);
+		if (flip == last)
+			run++;
+		else
+		{
+			if (run > max)
+				max = run;
+			run = 0;
+		}
+		last = flip;
+	}
+	return max;
+}
 
 void exercise5()
 {
-
+	int toss;
+	cout << "Enter number of tosses: ";
+	cin >> toss;
+	cout << "Longest run size is " << sequence(toss) << endl;
 }
 
 //Menu------------------------------------------------------------------------------------------------
 int main()
 {
-	srand(123);
+	srand(time(0));
 	int exercise = -1;
 	while (exercise != 0)
 	{
