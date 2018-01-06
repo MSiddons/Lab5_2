@@ -128,7 +128,7 @@ void exercise4()
 //Q5------------------------------------------------------------------------------------------------
 int sequence(int toss)
 {
-	int flip, last = 2, run = 0, max = 0;
+	int flip, last = 2, run = 1, max = 0;
 	for (int i = 1; i <= toss; i++)
 	{
 		flip = (rand() % 2);
@@ -138,7 +138,7 @@ int sequence(int toss)
 		{
 			if (run > max)
 				max = run;
-			run = 0;
+			run = 1;
 		}
 		last = flip;
 	}
